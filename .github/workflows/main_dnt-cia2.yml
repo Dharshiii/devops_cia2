@@ -20,12 +20,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+      - name: install dependencies
+        run: npm install
 
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+      - name: run jest test
+        run: npm test
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -52,5 +51,5 @@ jobs:
         with:
           app-name: 'dnt-cia2'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_64C3CA051A074FFB9D1A51EAA418A912 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: .
